@@ -15,7 +15,7 @@ router.post("/add", async function (req, res) {
     content: req.body.content,
   });
   await newNote.save();
-  const response = { message: "new Note Created" + `id: ${req.body.id}` };
+  const response = { message: "new Notes Created" + `id: ${req.body.id}` };
   res.json(response);
 });
 
