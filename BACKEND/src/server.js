@@ -7,19 +7,17 @@ const Note = require("./models/note");
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-mongoose
-  .connect(
-    "mongodb+srv://sadid:badboy502797@cluster0.hwpcs.mongodb.net/notesdb"
-  )
-  .then(function () {
-    app.get("/", function (req, res) {
-      const response = { message: "API WORKS" };
-      res.json(response);
-    });
-    const notesRoute = require("./routes/notesRoutes");
-    app.use("/notes", notesRoute);
+const mongoDBpath =
+  "mongodb+srv://sadid:badboy502797@cluster0.hwpcs.mongodb.net/notesdb";
+mongoose.connect(mongoDBpath).then(function () {
+  app.get("/", function (req, res) {
+    const response = { message: "API WORKS" };
+    res.json(response);
   });
-
-app.listen(5000, function () {
-  console.log("Server is Started at PORT:5000");
+  const notesRoute = require("./routes/notesRoutes");
+  app.use("/notes", notesRoute);
+});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, function () {
+  console.log("Server is Started at PORT:" + PORT);
 });
